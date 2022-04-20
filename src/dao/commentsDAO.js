@@ -45,7 +45,9 @@ export default class CommentsDAO {
     try {
       // TODO Ticket: Create/Update Comments
       // Construct the comment document to be inserted into MongoDB.
-      console.log(movieId)
+
+
+      // This ticket is complete, but the test cases for it are not.
       const commentDoc = { 
         ...user,
         movie_id: movieId,
@@ -53,7 +55,6 @@ export default class CommentsDAO {
         date: date,
       }
       
-      console.log(commentDoc)
       return await comments.insertOne(commentDoc)
     } catch (e) {
       console.error(`Unable to post comment: ${e}`)
@@ -109,6 +110,7 @@ export default class CommentsDAO {
       // Use the userEmail and commentId to delete the proper comment.
       const deleteResponse = await comments.deleteOne({
         _id: ObjectId(commentId),
+        email: userEmail
       })
 
       return deleteResponse
